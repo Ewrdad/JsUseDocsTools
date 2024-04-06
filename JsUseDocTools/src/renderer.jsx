@@ -26,15 +26,17 @@
  * ```
  */
 
-import './index.css';
-import React from 'react';
-import { App } from './App/App.jsx';
-import { createRoot } from 'react-dom/client';
-console.log('👋 This message is being logged by "renderer.js", included via Vite');
+import "./index.css";
+import React from "react";
+import { App } from "./App/App.jsx";
+import { createRoot } from "react-dom/client";
+console.log(
+  '👋 This message is being logged by "renderer.js", included via Vite',
+);
 
 // Clear the existing HTML content
 document.body.innerHTML = '<div id="app"></div>';
 
 // Render your React component instead
-const root = createRoot(document.getElementById('app'));
+const root = createRoot(document.getElementById("app"));
 root.render(<App />);

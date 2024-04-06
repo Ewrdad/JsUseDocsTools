@@ -1,5 +1,6 @@
 import { debug } from "./Core/debug/debug";
 import { set } from "./Core/set/set";
+import { goto } from "./Core/goto/goto";
 
 /**
  * @alias RunCommands
@@ -7,9 +8,15 @@ import { set } from "./Core/set/set";
  * @param {Object} AppState The current state of the app
  * @param {Function} setAppState The function that sets the state of the app
  * @param {String} Command The command to run
+ * @param {Function} navigate The function that navigates to a different page
  *
  */
-export const CommandHandle = async (AppState, setAppState, Command) => {
+export const CommandHandle = async (
+  AppState,
+  setAppState,
+  Command,
+  navigate,
+) => {
   //Split Command into space array
   const CommandArray = Command.split(" ");
   console.log("CommandArray: ", CommandArray);
@@ -24,6 +31,9 @@ export const CommandHandle = async (AppState, setAppState, Command) => {
       //Run Set Command
       return set(AppState, setAppState, CommandArray);
 
+    case "goto":
+      //Run Goto Command
+      return goto(AppState, setAppState, CommandArray, navigate);
     default:
       //Run Default Command
       console.log("error: Command not found");
@@ -32,6 +42,7 @@ export const CommandHandle = async (AppState, setAppState, Command) => {
 };
 
 import { setCommandList as setCommands } from "./Core/set/set";
+import { gotoCommandList } from "./Core/goto/goto";
 import { Navigation, Bug } from "lucide-react";
 /**
  * @alias GetCommandList
@@ -53,18 +64,7 @@ export const GetCommandList = (CommandList, setCommandList) => {
     });
   };
 
-  PublishCommand(
-    {
-      name: "GOTO",
-      description: "Navigates to a different page",
-      icon: <Navigation className="w-4 h-4 mr-2" />,
-    },
-    {
-      GroupName: "Navigation",
-      GroupIcon: <Navigation className="w-4 h-4 mr-2" />,
-      Commands: ["GOTO /", "GOTO /about", "GOTO /contact"],
-    },
-  );
+  PublishCommand(gotoCommandList.Base, gotoCommandList.All);
   PublishCommand(
     {
       name: "debug",

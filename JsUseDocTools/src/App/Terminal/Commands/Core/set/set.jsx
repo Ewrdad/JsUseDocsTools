@@ -15,19 +15,28 @@ export const set = async (AppState, setAppState, Command) => {
   switch (Command[1].trim()) {
     case "App":
       setAppState((prev) => {
-        return { ...prev, App: { ...prev.App, [Command[2]]: ParseCommandValue(Command[3]) } };
+        return {
+          ...prev,
+          App: { ...prev.App, [Command[2]]: ParseCommandValue(Command[3]) },
+        };
       });
       return true;
     case "Page":
       setAppState((prev) => {
-        return { ...prev, Page: { ...prev.Page, [Command[2]]: ParseCommandValue(Command[3]) } };
+        return {
+          ...prev,
+          Page: { ...prev.Page, [Command[2]]: ParseCommandValue(Command[3]) },
+        };
       });
       return true;
     case "Terminal":
       setAppState((prev) => {
         return {
           ...prev,
-          Terminal: { ...prev.Terminal, [Command[2]]: ParseCommandValue(Command[3]) },
+          Terminal: {
+            ...prev.Terminal,
+            [Command[2]]: ParseCommandValue(Command[3]),
+          },
         };
       });
       return true;
@@ -44,17 +53,16 @@ export const set = async (AppState, setAppState, Command) => {
  * @returns The converted value
  */
 export const ParseCommandValue = (Value) => {
-    if (Value === "true") {
-        return true;
-    } else if (Value === "false") {
-        return false;
-    } else if (!isNaN(Value)) {
-        return parseInt(Value);
-    } else {
-        return Value;
-    }
-    
-}
+  if (Value === "true") {
+    return true;
+  } else if (Value === "false") {
+    return false;
+  } else if (!isNaN(Value)) {
+    return parseInt(Value);
+  } else {
+    return Value;
+  }
+};
 
 /**
  * @alias setCommandList

@@ -13,6 +13,7 @@ import {
 
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "../../shadcn/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 import { GetCommandList, CommandHandle } from "./Commands/Commands";
 
@@ -22,6 +23,8 @@ import { GetCommandList, CommandHandle } from "./Commands/Commands";
  * @returns The terminal box and related
  */
 export const Terminal = ({ AppState, setAppState }) => {
+  const navigate = useNavigate();
+
   const Input = useRef(null);
   const [AppCommandList, setAppCommandList] = useState({
     Base: [],
@@ -51,6 +54,7 @@ export const Terminal = ({ AppState, setAppState }) => {
       AppState,
       setAppState,
       CurrentCommand,
+      navigate,
     );
     if (lastResult) {
       setCurrentCommand("");

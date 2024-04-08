@@ -16,6 +16,10 @@ import {
 import { DefaultPage } from "./DefaultPage/DefaultPage";
 import { ProjectOverview } from "./ProjectViewer/ProjectOverview/ProjectOverview";
 import { Debug } from "./Debug/Debug";
+import { ErrorBoundary } from "react-error-boundary";
+import { GenericError } from "./GenericError";
+import { DocViewer } from "./ProjectViewer/DocViewer/DocViewer";
+
 /**
  * @alias App
  * @description Main entry point of the render process for viewing
@@ -50,7 +54,9 @@ export const App = () => {
         >
           <ResizablePanel defaultSize={3}>
             <div className="relative top-0 items-start">
-              <Terminal AppState={AppState} setAppState={setAppState} />
+              <ErrorBoundary FallbackComponent={GenericError}>
+                <Terminal AppState={AppState} setAppState={setAppState} />
+              </ErrorBoundary>
               <br />
             </div>
           </ResizablePanel>
@@ -60,17 +66,30 @@ export const App = () => {
               <Route
                 path="/proj"
                 element={
-                  <ProjectOverview
-                    AppState={AppState}
-                    setAppState={setAppState}
-                  />
+                  <ErrorBoundary FallbackComponent={GenericError}>
+                    <ProjectOverview
+                      AppState={AppState}
+                      setAppState={setAppState}
+                    />
+                  </ErrorBoundary>
+                }
+              />
+              <Route
+                path="/doc"
+                element={
+                  <DocViewer AppState={AppState} setAppState={setAppState} />
                 }
               />
 
               <Route
                 path="*"
                 element={
-                  <DefaultPage AppState={AppState} setAppState={setAppState} />
+                  <ErrorBoundary FallbackComponent={GenericError}>
+                    <DefaultPage
+                      AppState={AppState}
+                      setAppState={setAppState}
+                    />
+                  </ErrorBoundary>
                 }
               />
             </Routes>
@@ -79,7 +98,9 @@ export const App = () => {
             <>
               <ResizableHandle withHandle />
               <ResizablePanel defaultSize={15}>
-                <Debug AppState={AppState} />
+                <ErrorBoundary FallbackComponent={GenericError}>
+                  <Debug AppState={AppState} />
+                </ErrorBoundary>
               </ResizablePanel>
             </>
           )}

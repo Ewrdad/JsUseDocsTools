@@ -14,6 +14,13 @@ import { useState } from "react";
  *
  */
 export const MainFiles = () => {
+  /**
+   * @alias Files
+   * @description List of key files to be displayed
+   *
+   * TODO: Switch to use query
+   * TODO: Link to a function on backend to get the files
+   */
   const [Files, setFiles] = useState([
     {
       name: "App.js",

@@ -30,9 +30,26 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
+/**
+ * @alias Button
+ * @description A generic button component.
+ * @param onClick - A function to be called when the button is clicked.
+ * @param className - The tailwind styling overides for the button.
+ * 
+ * @example <Button
+            className=""
+            onClick={() => {
+              loadProject();
+            }}
+          >
+            <MoveRight />
+            GOTO
+          </Button>
+ * @shadcnui
+ */
 const Button = React.forwardRef(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
@@ -43,7 +60,7 @@ const Button = React.forwardRef(
         {...props}
       />
     );
-  },
+  }
 );
 Button.displayName = "Button";
 

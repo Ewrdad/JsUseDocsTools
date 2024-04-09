@@ -2,13 +2,31 @@ import * as React from "react";
 
 import { cn } from "/src/shadcn/lib/utils";
 
+/**
+ * @alias Input
+ * @description A generic text input component
+ * @param placeholder - The placeholder text for the input
+ * @param value - The value of the input
+ * @param onChange - The function to be called when the input is changed
+ * 
+ * @example <Input
+            placeholder="File Address..."
+            value={ProjectDir}
+            onChange={(event) => {
+              setProjectDir(event.target.value);
+            }}
+          />
+
+  * @shadcnui
+  *
+ */
 const Input = React.forwardRef(({ className, type, ...props }, ref) => {
   return (
     <input
       type={type}
       className={cn(
         "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        className,
+        className
       )}
       ref={ref}
       {...props}

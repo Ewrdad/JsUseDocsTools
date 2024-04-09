@@ -16,7 +16,7 @@ export const DefaultPage = ({ AppState, setAppState }) => {
   const [ProjectDir, setProjectDir] = useState("");
 
   const loadProject = async () => {
-    setAppState(prev => {
+    setAppState((prev) => {
       return {
         ...prev,
         App: {
@@ -24,9 +24,9 @@ export const DefaultPage = ({ AppState, setAppState }) => {
           ProjectDir: ProjectDir,
         },
       };
-    })
+    });
     navigate("/proj");
-  }
+  };
   return (
     <div className="flex flex-col items-center justify-center w-full h-full bg-slate-200">
       <h1 className="text-4xl font-bold">Welcome to JsUseDoc Tools</h1>
@@ -36,7 +36,13 @@ export const DefaultPage = ({ AppState, setAppState }) => {
           {" "}
         </Grid>
         <Grid item xs={4}>
-          <Input placeholder="File Address..." value={ProjectDir} onChange={(event)=> {setProjectDir(event.target.value)}} />
+          <Input
+            placeholder="File Address..."
+            value={ProjectDir}
+            onChange={(event) => {
+              setProjectDir(event.target.value);
+            }}
+          />
         </Grid>
         <Grid item xs={2}>
           <Button className="bg-slate-600">

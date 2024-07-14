@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@mui/material";
+import { Paper } from "@mui/material";
 import {
   Tabs,
   TabsContent,
@@ -6,6 +6,8 @@ import {
   TabsTrigger,
 } from "@/shadcn/components/ui/tabs";
 import { useState } from "react";
+import { JSFileDisplay } from "./JSFileDisplay/JSFileDisplay";
+import { MarkdownFileDisplay } from "./MarkdownFileDisplay/MarkdownFileDisplay";
 
 /**
  * @alias MainFiles
@@ -25,18 +27,20 @@ export const MainFiles = () => {
     {
       name: "App.js",
       path: "src/App.js",
+      type: "js",
       content: "THis Is a main app .js \n with multiple lines of code",
     },
     {
       name: "readme.md",
       path: "readme.md",
-      content: "THis Is a main app .js \n with multiple lines of code",
+      type: "md",
+      content: "THis Is a main app .md \n with multiple lines of code",
     },
   ]);
 
   return (
-    <Paper>
-      <Tabs defaultValue={Files[0].name} className="w-[400px]">
+    <Paper sx={{ minHeight: "50vh" }}>
+      <Tabs defaultValue={Files[0].name} className="w-[400px] min-h-5">
         <TabsList>
           {Files.map((file, index) => (
             <TabsTrigger value={file.name}>{file.name}</TabsTrigger>
@@ -45,8 +49,8 @@ export const MainFiles = () => {
 
         {Files.map((file, index) => (
           <TabsContent value={file.name}>
-            <p>{file.path}</p>
-            <p>{file.content}</p>
+            {file.type === "js" && <JSFileDisplay file={file} />}
+            {file.type === "md" && <MarkdownFileDisplay file={file} />}
           </TabsContent>
         ))}
       </Tabs>
